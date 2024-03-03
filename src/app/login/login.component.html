@@ -1,0 +1,42 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- {{securityObject|json}} -->
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="" formControlName="username">
+                    <mat-icon matSuffix>person_outline</mat-icon>
+                    <mat-hint *ngIf="form.get('username')!.touched && form.get('username')!.hasError('required')">Username is required</mat-hint>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="" type="password" formControlName="password">
+                    <mat-icon matSuffix> vpn_key</mat-icon>
+                    <mat-hint *ngIf="form.get('password')!.touched && form.get('password')!.hasError('required')">Password is required</mat-hint>
+                </mat-form-field>  
+            </p>  
+            <p *ngIf="error" class="error-message">
+                {{ error }}
+            </p>
+            <section>
+                <div>
+                    <p>
+                        <!-- <button mat-raised-button color="primary" type="button" class="mh-login-button" routerLink="/main/dashboard">Login</button> -->
+                        <button mat-raised-button color="primary" class="mh-login-button" [disabled]="form.invalid">Login</button>
+                    </p>
+                    <p>
+                        <button mat-raised-button color="accent" type="submit" class="mh-login-button">Sign up</button>
+                    </p>  
+                </div>
+            </section>                           
+        </form>
+    </mat-card-content>
+  </mat-card>

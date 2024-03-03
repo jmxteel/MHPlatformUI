@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  justify-content: center;
+  // margin: 100px 0px;
+  margin: 10%;
+}
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+.mh-login-button{
+  width: 100%;
+}
+.mh-sign-up-button{
+  width: 100%;
+}
+
+mat-hint ::ng-deep{
+  color: red;
+}
+
+.error-message{
+  color: red;
+}

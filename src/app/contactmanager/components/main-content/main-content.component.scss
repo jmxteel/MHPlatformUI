@@ -1,0 +1,56 @@
+.example-card {
+    height: 300px;
+    width: 300px;
+    max-width: 400px;
+    margin-top: 50px;
+
+    // @media (max-width: 720px){
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
+
+  }
+
+  .installation-header-image {
+    background-image: url('/assets/svg/multiple-defenses-svgrepo-com.svg');
+    background-size: cover;
+  }
+
+  .production-header-image {
+    background-image: url('/assets/svg/interface-control-svgrepo-com.svg');
+    background-size: cover;
+  }
+
+  .inventory-header-image {
+    background-image: url('/assets/svg/recursive-server-svgrepo-com.svg');
+    background-size: cover;
+  }
+
+  .employee-header-image {
+    background-image: url('/assets/svg/host-record-svgrepo-com.svg');
+    background-size: cover;
+  }
+
+  .example-card:hover {
+    cursor: pointer;
+    animation: avatar-pulse 2s infinite;
+    transition: background-color 1s;
+    // width: 75px;
+    transition: 1s ease all;
+  }
+  
+  @keyframes avatar-pulse {
+    0% {
+      box-shadow: 0 0 0 0 grey;
+    }
+    100% {
+      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+  }
+
+  .fit-image {
+    width: 100%;
+    height: auto;
+    display: block; 
+  }

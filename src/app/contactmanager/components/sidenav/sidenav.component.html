@@ -1,0 +1,25 @@
+<mat-drawer-container class="app-sidenav-container">
+    <mat-drawer #drawer class="app-sidenav" [opened]="!isScreenSmall" [mode]="isScreenSmall? 'over' : 'side'">
+      <mat-toolbar color="primary">Menu</mat-toolbar>
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <button class="mh-sidenav-button" routerLink="''" routerLinkActive="mh-active-button" mat-stroked-button>Home</button>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <button class="mh-sidenav-button" routerLink="access-rights" routerLinkActive="mh-active-button" mat-stroked-button>Access Rights</button>
+        </mat-list-item>      
+        <mat-list-item role="listitem">
+          <button class="mh-sidenav-button" routerLink="reports" routerLinkActive="mh-active-button" mat-stroked-button>Reports</button>
+        </mat-list-item>            
+      </mat-list>      
+    </mat-drawer>
+  
+    <div class="app-sidenav-content">
+        <app-toolbar (toggleSidenav)="drawer.toggle()"></app-toolbar>
+        <div class="wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+  
+  </mat-drawer-container>
+  
