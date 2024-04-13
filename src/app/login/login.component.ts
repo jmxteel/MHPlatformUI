@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppUser } from '../security/app-user';
 import { AppUserAuth } from '../security/app-user-authentication';
 import { SecurityService } from '../shared/security/security.service';
+import { MessageService } from '../shared/messaging/message.service';
 
 @Component({
     selector: 'mh-login-form',
@@ -26,6 +27,7 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private securityService: SecurityService,
+    private messageService: MessageService,
     private loginService: LoginService,
     private route: ActivatedRoute,
     private router: Router

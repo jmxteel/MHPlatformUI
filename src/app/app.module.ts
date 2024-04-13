@@ -20,8 +20,9 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./contactmanager/contactmanager.module').then(m => m.ContactmanagerModule),
-    // canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
     // data: { claimType: 'canAccessCategories' }  
+    data: { claimType: 'isAuthenticated' } 
   },
   {
     path: 'demo',
