@@ -64,8 +64,14 @@ export class LoginFormComponent implements OnInit {
         response => {
         localStorage.setItem('AuthObject', JSON.stringify(response));
         this.securityObject = response;
+        this.securityService.setResponseData(response);
+
+        this.securityService.responseData$.subscribe(data => {
+          console.log('data: ', data);
+        });
+        this.securityService.setResponseData(response);
         //if(this.returnUrl) {
-          this.router.navigateByUrl('/main/dashboard');
+          this.router.navigateByUrl('main');
         //}
       });
     }

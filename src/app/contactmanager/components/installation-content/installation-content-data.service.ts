@@ -28,18 +28,19 @@ export class InstallationService {
 
   getFileFlows(): Observable<any> {
     //Remove this code if you want to use authguard instead of.NET Security Policy
-    const auth = localStorage.getItem('AuthObject');
-    const authObject = JSON.parse(auth!); 
+    //const auth = localStorage.getItem('AuthObject');
+    //const authObject = JSON.parse(auth!); 
     // 
 
-    let httpOptions = new HttpHeaders()
+    //let httpOptions = new HttpHeaders()
     //If you want to use AuthGuard instead of .NET Security Policy, just un
     // .set('Authorization', 'Bearer '+ this.securityService.securityObject.bearerToken);
-    .set('Authorization', 'Bearer '+ authObject.bearerToken);  
+    //.set('Authorization', 'Bearer '+ authObject.bearerToken);  
 
     this.msgService.clearExceptionMessages();
 
-    return this.http.get<any>(this.apiUrl, { headers: httpOptions }).pipe(
+    // return this.http.get<any>(this.apiUrl, { headers: httpOptions }).pipe(
+    return this.http.get<any>(this.apiUrl).pipe(
         tap(response => {
             console.log('getFileFlows() response:'+ JSON.stringify(response));
         }),

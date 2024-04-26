@@ -9,7 +9,7 @@ import { MaterialModule } from './shared/material.module';
 import { DelayRoutingGuard } from './shared/spinner/delay-routing.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
-
+import { HttpInterceptorProviders } from './shared/http-interceptor/interceptor-providers';
 
 const routes: Routes = [
   {
@@ -17,6 +17,11 @@ const routes: Routes = [
     canActivate: [DelayRoutingGuard],
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
+  {
+    path: 'sign-up',
+    canActivate: [DelayRoutingGuard],
+    loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignUpModule)
+  },  
   {
     path: 'main',
     loadChildren: () => import('./contactmanager/contactmanager.module').then(m => m.ContactmanagerModule),
@@ -46,7 +51,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [HttpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { AppUser } from 'src/app/security/app-user';
 import { AppUserAuth } from 'src/app/security/app-user-authentication';
 import { ConfigurationService } from '../configuration/configuration.service';
@@ -17,6 +17,11 @@ const httpOptions = {
 export class SecurityService {
   securityObject: AppUserAuth = new AppUserAuth();
   apiUrl: string = "";
+  private hasChanged = new BehaviorSubject<number>(0);
+  securityReset$ = this.hasChanged.asObservable();
+
+  private responseDataSubject = new BehaviorSubject<any>(null);
+  responseData$ = this.responseDataSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -63,16 +68,28 @@ export class SecurityService {
               //use object assign to update the current object
               // NOTE: DO NOT CREATE A NEW AppUserAuth object
               //      because that destroys all the reference of the object
+              this.hasChanged.next(1);
               Object.assign(this.securityObject, response)
+
+              // Inform every component that a login has occured
+              this.hasChanged.next(1);
             }),
             catchError(
               this.handleError<AppUserAuth>('login', 
-              'Invalid username or password', new AppUserAuth()))
+              'Invalid username or password', new AppUserAuth())
+            ),
           );
+  }
+
+  setResponseData(data: any) {
+    this.responseDataSubject.next(data);
+    console.log(this.responseData$);
   }
 
   logOut(): void {
     this.securityObject.init(); 
+    // Inform every component that a logout has occured
+    this.hasChanged.next(0);
   }
 
   handleError<T>(operation = 'operation', msg = '', result?: T) {
