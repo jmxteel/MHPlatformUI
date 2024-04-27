@@ -27,8 +27,6 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private securityService: SecurityService,
-    private messageService: MessageService,
-    private loginService: LoginService,
     private route: ActivatedRoute,
     private router: Router
   ) { this.securityObject = new AppUserAuth(); }

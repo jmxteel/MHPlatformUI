@@ -9,6 +9,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SecurityService } from '../shared/security/security.service';
+import { ExceptionMessageComponent } from '../shared/messaging/exception-message.component';
+import { MessagingModule } from '../shared/messaging/messaging.module';
 
 const routes: Routes = [
     {path: '', component: LoginFormComponent},
@@ -24,6 +26,7 @@ const routes: Routes = [
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    MessagingModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(routes)

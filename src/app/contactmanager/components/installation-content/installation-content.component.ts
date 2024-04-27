@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InstallationService } from './installation-content-data.service';
+import { InstallationDataService } from './installation-content-data.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ export class InstallationContentComponent implements OnInit, OnDestroy {
   loading = true;
   private subscription: Subscription | undefined;
 
-  constructor(private installationService: InstallationService) { }
+  constructor(private installationService: InstallationDataService,) { }
 
   ngOnInit(): void {
     this.subscription = this.installationService.getFileFlows().subscribe(data => {

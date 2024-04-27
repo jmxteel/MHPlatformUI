@@ -17,7 +17,7 @@ const httpOptions = {
 export class SecurityService {
   securityObject: AppUserAuth = new AppUserAuth();
   apiUrl: string = "";
-  private hasChanged = new BehaviorSubject<number>(0);
+  public hasChanged = new BehaviorSubject<number>(0);
   securityReset$ = this.hasChanged.asObservable();
 
   private responseDataSubject = new BehaviorSubject<any>(null);
@@ -68,7 +68,6 @@ export class SecurityService {
               //use object assign to update the current object
               // NOTE: DO NOT CREATE A NEW AppUserAuth object
               //      because that destroys all the reference of the object
-              this.hasChanged.next(1);
               Object.assign(this.securityObject, response)
 
               // Inform every component that a login has occured
@@ -121,7 +120,7 @@ export class SecurityService {
           this.msgService.addExceptionMessage("Error 401: Not authorized");
           break;  
         case 403:
-          this.msgService.addExceptionMessage("Error 403: Forbidden");
+          this.msgService.addExceptionMessage("Error 403: Forbidden Access");
           break;            
         case 404:
           this.msgService.addExceptionMessage(msg);

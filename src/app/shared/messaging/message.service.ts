@@ -1,14 +1,19 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MessageService {
   infoMessages: string[] = [];
   exceptionMessages: string[] = [];
   validationMessages: string[] = [];
   lastException: any;
+  //exceptionMessageAdded: EventEmitter<any> = new EventEmitter<any>();
+  public errorMessage = new BehaviorSubject<any>(null);
+  errorMessage$ = this.errorMessage.asObservable();
 
   constructor() { }
 
@@ -20,6 +25,7 @@ export class MessageService {
   clearInfoMessages() {
     this.infoMessages = [];
   }
+
   addValidationMessage(message: string) {
     console.info("Validation: " + message);
     this.validationMessages.push(message);
@@ -39,6 +45,7 @@ export class MessageService {
 
     console.error("Exception: " + message);
     this.exceptionMessages.push(message);
+    this.errorMessage.next(this.exceptionMessages);
   }
 
   addException(error: HttpErrorResponse) {
@@ -71,4 +78,5 @@ export class MessageService {
     this.clearInfoMessages();
     this.clearValidationMessages();
   }
+
 }

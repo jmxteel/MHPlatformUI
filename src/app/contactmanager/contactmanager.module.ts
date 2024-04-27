@@ -15,6 +15,7 @@ import { ReportsContentComponent } from './components/reports-content/reports-co
 import { AccessRightsContentComponent } from './components/access-rights-content/access-rights-content.component';
 import { ExceptionMessageComponent } from '../shared/messaging/exception-message.component';
 import { ContentLoaderComponent } from './components/content-loader/content-loader.component';
+import { MessagingModule } from '../shared/messaging/messaging.module';
 
 const routes: Routes = [
   {
@@ -40,7 +41,7 @@ const routes: Routes = [
     InstallationContentComponent,
     ReportsContentComponent,
     AccessRightsContentComponent,
-    ExceptionMessageComponent,
+    //ExceptionMessageComponent,
     ContentLoaderComponent,
   ],
   imports: [
@@ -48,6 +49,7 @@ const routes: Routes = [
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
+    MessagingModule,
     RouterModule.forChild(routes)
   ]
 })

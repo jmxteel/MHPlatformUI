@@ -1,10 +1,13 @@
 <!-- ** BEGIN: EXCEPTION MESSAGE AREA ** -->
-<mat-card *ngIf="messageService.exceptionMessages.length > 0" class="mh-card-red">
+<!-- <mat-card *ngIf="messageService.exceptionMessages.length > 0" class="mh-card-red">
+  <p>
+    <button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>
+  </p>
   <mat-card-content>
     <h3>Exception messages</h3>
     <mat-list role="list" *ngFor="let msg of messageService.exceptionMessages">
       <mat-list-item role="listitem">{{msg}}</mat-list-item>
     </mat-list>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
 <!-- ** END: EXCEPTION MESSAGE AREA ** -->

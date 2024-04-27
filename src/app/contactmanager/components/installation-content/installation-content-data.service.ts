@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class InstallationService {
+export class InstallationDataService {
   apiUrl: string = "";
 
   constructor(
@@ -45,7 +45,8 @@ export class InstallationService {
             console.log('getFileFlows() response:'+ JSON.stringify(response));
         }),
         catchError(
-          this.securityService.handleError<any>('getFileFlow','Can`t retrieve FileFlow/Folders',[]))
+          //this.securityService.handleError<any>('getFileFlow','Can`t retrieve FileFlow/Folders',[]))
+          this.securityService.handleError<any>())
       );
   }
 
