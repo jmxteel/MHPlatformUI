@@ -16,6 +16,8 @@ import { AccessRightsContentComponent } from './components/access-rights-content
 import { ExceptionMessageComponent } from '../shared/messaging/exception-message.component';
 import { ContentLoaderComponent } from './components/content-loader/content-loader.component';
 import { MessagingModule } from '../shared/messaging/messaging.module';
+import { AgGridModule } from 'ag-grid-angular';
+import { RemoteGridBindingDirective } from './components/installation-content/remote-grid-binding.directive';
 
 const routes: Routes = [
   {
@@ -43,6 +45,7 @@ const routes: Routes = [
     AccessRightsContentComponent,
     //ExceptionMessageComponent,
     ContentLoaderComponent,
+    RemoteGridBindingDirective,
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ const routes: Routes = [
     FlexLayoutModule,
     FormsModule,
     MessagingModule,
+    AgGridModule,
     RouterModule.forChild(routes)
   ]
 })
