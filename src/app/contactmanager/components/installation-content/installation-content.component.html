@@ -2,28 +2,11 @@
 <mat-card class="mh-installation-card">
     <mat-card-content>
         <div class="mh-installation-ag-grid-container">
-            <!-- <ag-grid-angular class="ag-theme-balham" [rowData]="rowData"
-            [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)">
-            </ag-grid-angular>    -->
             <ag-grid-angular class="ag-theme-balham"
             [columnDefs]="columnDefs" [remoteGridBinding]="remoteGridBinding" [gridOptions]="gridOptions" >
             </ag-grid-angular>             
         </div>     
         <app-content-loader *ngIf="loading"></app-content-loader>
         <exception-message *ngIf="!loading"></exception-message>
-        <table *ngIf="folders && !loading" border="1" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>OrderID</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let folder of folders">
-                <tr>
-                    <td>
-                        {{folder.orderID}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </mat-card-content>
 </mat-card>
