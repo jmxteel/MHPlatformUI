@@ -1,30 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InstallationDataService } from './installation-content-data.service';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, catchError, of, tap } from 'rxjs';
 
 import { ColDef, GridApi, GridOptions, IGetRowsParams } from 'ag-grid-community'; // Column Definition Type Interface
-import { RemoteGridApi } from './remote-grid-api';
 import { GridDataModel } from '../../Model/grid-data-model';
 import { OrderForm } from '../components-models/order-form.model';
 import { Pagination } from '../components-models/pagination.model';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-installation-content',
   templateUrl: './installation-content.component.html',
   styleUrls: ['./installation-content.component.scss']
 })
-export class InstallationContentComponent implements OnInit, RemoteGridApi, OnDestroy {
+export class InstallationContentComponent implements OnInit, OnDestroy {
   folders: any;
   loading = true;
   private subscription: Subscription | undefined;
-  // gridApi: any;
   gridApi!: any;
   cardHeight: number = 0; // Initialize cardHeight
-  remoteGridBinding = this;
   gridData!: GridDataModel;
   customerData: OrderForm[] = [];
   columnDefs: ColDef[] = [];
   pagination?: Pagination;
+  title = {forSchedule: 'For Schedule', scheduled: 'Scheduled', onGoing: 'on Going', forReturn: 'For Return', forCancellation: 'For Cancellation'};
 
   constructor(private installationService: InstallationDataService,) { }
 
@@ -34,6 +33,15 @@ export class InstallationContentComponent implements OnInit, RemoteGridApi, OnDe
       this.customerData = data.body;
       this.columnDefs = this.createColumnDefs(this.customerData);
       this.pagination = JSON.parse(data.headers.get('X-Pagination'));
+
+      //Inititalize AG Grid options
+      this.gridOptions = {
+        pagination: true,
+        rowModelType: 'infinite',
+        cacheBlockSize: this.pagination?.PageSize,
+        paginationPageSize: this.pagination?.PageSize,
+        onGridReady: this.onGridReady.bind(this),
+      }
     })
   }
 
@@ -58,7 +66,6 @@ formatHeaderName(key: string): string {
   };
 
   gridOptions: GridOptions = {
-    pagination: true,
     rowModelType: 'infinite',
     cacheBlockSize: this.pagination?.PageSize,
     paginationPageSize: this.pagination?.PageSize,
@@ -69,15 +76,13 @@ formatHeaderName(key: string): string {
     this.gridApi = params.api;
     this.gridApi.setDomLayout('autoHeight');
     this.gridApi.sizeColumnsToFit(); // Size columns to fit the available width
+    this.gridApi.setDatasource({
+      getRows: (params: IGetRowsParams) => {
+        this.getData(params)
+        params.successCallback(this.customerData, 20)
+      }
+    })
   } 
-
-  // getData(params: any): Observable<{data: any, totalRecords: any}> {
-  //   return of({data: this.rowData, totalRecords: 85});
-  // }  
-
-  // getData(params: IGetRowsParams): Observable<GridDataModel> {
-  //   return of({data: this.rowData, totalRecords: 85});
-  // }  
 
   getData(params: IGetRowsParams): Observable<GridDataModel> {
     return of({data: this.customerData, totalRecords: this.pagination?.TotalItemCount});
@@ -89,4 +94,22 @@ formatHeaderName(key: string): string {
     this.subscription!.unsubscribe(); 
   }
 
+  alertFunction(message?: string): void {
+    alert('Alert Function' + message);
+  }
+
+  onTabChange(event: MatTabChangeEvent) {
+    switch (event.index){
+      case 0:
+        this.alertFunction('Tab no 1');
+        break;
+      case 1:
+        this.alertFunction('Tab no 2');
+        break;
+      case 2:
+        this.alertFunction('Tab no 3');
+        break;
+
+    }
+  } 
 }

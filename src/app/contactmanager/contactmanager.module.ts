@@ -17,7 +17,8 @@ import { ExceptionMessageComponent } from '../shared/messaging/exception-message
 import { ContentLoaderComponent } from './components/content-loader/content-loader.component';
 import { MessagingModule } from '../shared/messaging/messaging.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { RemoteGridBindingDirective } from './components/installation-content/remote-grid-binding.directive';
+// import { RemoteGridBindingDirective } from './components/installation-content/remote-grid-binding.directive';
+import { ProductionContentComponent } from './components/production-content/production-content.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'reports', component: ReportsContentComponent },
       { path: 'access-rights', component: AccessRightsContentComponent },
       { path: 'installation', component: InstallationContentComponent },
+      { path: 'production', component: ProductionContentComponent },
     ]
   },  
   { path: '**', redirectTo: '' }
@@ -45,7 +47,8 @@ const routes: Routes = [
     AccessRightsContentComponent,
     //ExceptionMessageComponent,
     ContentLoaderComponent,
-    RemoteGridBindingDirective,
+    // RemoteGridBindingDirective,
+    ProductionContentComponent,
   ],
   imports: [
     CommonModule,
