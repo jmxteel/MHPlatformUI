@@ -19,6 +19,7 @@ import { MessagingModule } from '../shared/messaging/messaging.module';
 import { AgGridModule } from 'ag-grid-angular';
 // import { RemoteGridBindingDirective } from './components/installation-content/remote-grid-binding.directive';
 import { ProductionContentComponent } from './components/production-content/production-content.component';
+import { CamelCasePipe } from '../shared/custom-pipe/camel-case.pipe';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
     ContentLoaderComponent,
     // RemoteGridBindingDirective,
     ProductionContentComponent,
+    CamelCasePipe,
   ],
   imports: [
     CommonModule,

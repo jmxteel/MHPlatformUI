@@ -16,3 +16,24 @@ app-content-loader {
     align-items: center;
     justify-content: center;
 }
+
+.modal-backdrop {
+    z-index: 1040 !important;
+  }
+  .modal-content {
+    z-index: 1100 !important;
+  }
+
+  table {
+    width: 100%;
+}
+
+.full-width {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-header-cell {
+  color: white;
+  background-color: #3f51b5 !important;
+}

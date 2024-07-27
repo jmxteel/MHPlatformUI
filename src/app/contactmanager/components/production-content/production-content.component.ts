@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
-
-import { ColDef, GridApi, GridOptions, IGetRowsParams } from 'ag-grid-community'; // Column Definition Type Interface
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ProductionDataServices } from './production-content-data.service';
+import { Employee, EmployeeTable } from './model/employee';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
+import { ClientTable } from './model/production-content.model';
+import { OrderForm } from '../components-models/order-form.model';
 import { Pagination } from '../components-models/pagination.model';
 
 @Component({
@@ -10,76 +14,72 @@ import { Pagination } from '../components-models/pagination.model';
   templateUrl: './production-content.component.html',
   styleUrls: ['./production-content.component.scss']
 })
-export class ProductionContentComponent implements OnInit {
-  //@ViewChild('myGrid') myGrid: AgGridAngular;
-
-  gridOptions: Partial<GridOptions>;
-  gridApi: any;
-  gridColumnApi: any;
-  columnDefs;
-  cacheOverflowSize;
-  maxConcurrentDatasourceRequests;
-  infiniteInitialRowCount;
+export class ProductionContentComponent implements OnInit, AfterViewInit {
+  loading: boolean = true;
+  filter?: string;
+  q?: string;
   pagination!: Pagination;
+  displayedColumns: string[] = [
+    'ordrno',
+    'ctitle',
+    'cName',
+    'cSurname',
+    'cAdd',
+    'insAdd',
+    'cmobile',
+  ];
 
-  rowData: any;
+  empTable?: ClientTable;
 
-  constructor(private productionDataService: ProductionDataServices) { 
-    this.columnDefs = [
-      { headerName: 'Order No.', field: 'ordrno', sortable: true },
-      { headerName: 'Title', field: 'ctitle', sortable: true },
-      { headerName: 'Name', field: 'cName', sortable: true },
-      { headerName: 'Surname', field: 'cSurname', sortable: true },
-      { headerName: 'Address', field: 'cAdd', sortable: true },
-      { headerName: 'Address2', field: 'insAdd', sortable: true },
-      { headerName: 'Contact', field: 'cCon', sortable: true },
-      { headerName: 'Mobile', field: 'cmobile', sortable: true },
-      { headerName: 'Fax', field: 'cFax', sortable: true },
-      { headerName: 'Contact', field: 'conPrsn', sortable: true },
-    ];
+  totalData?: number;
 
-    this.cacheOverflowSize = 2;
-    this.maxConcurrentDatasourceRequests = 2;
-    this.infiniteInitialRowCount = 2;
+  EmpData?: OrderForm[];
 
-    this.gridOptions = {
-      headerHeight: 45,
-      rowHeight: 30,
-      rowModelType: 'infinite',
-      onGridReady: this.onGridReady.bind(this),
-    }    
+  dataSource = new MatTableDataSource<OrderForm>();
+
+  isLoading = false;
+
+  constructor(public empService: ProductionDataServices, private cd: ChangeDetectorRef) {
+    this.loading = false;
   }
 
-  onGridReady(params: any) {
-    console.log('On Grid Ready');
+  @ViewChild('paginator') paginator!: MatPaginator;
 
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    this.gridApi.setDomLayout('autoHeight');
-    this.gridApi.sizeColumnsToFit(); // Size columns to fit the available width    
+  pageSizes = [20,50,100];
 
-    this.gridApi.setDatasource({
-      getRows: (params: IGetRowsParams) => {
-        //  TODO: Call a service that fetches list of users
-        console.log("Fetching startRow " + params.startRow + " of " + params.endRow);
-        console.log(params);
-        this.productionDataService.getCustomers()
-          .subscribe((data: any) => { 
-            this.pagination = JSON.parse(data.headers.get('X-Pagination'));
-            this.rowData = data.body;
-            console.log(data);
-            params.successCallback(this.rowData, this.pagination.PageSize) 
-          });
-      }
-    });
-
-    
+  getTableData$(pageNumber: Number, pageSize: Number) {
+    return this.empService.getCustomers(pageNumber, pageSize, this.filter='', this.q='');
   }
-
-  // onPaginationChanged() {
-
-  // }  
 
   ngOnInit(): void {
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+
+    this.paginator.page
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoading = true;
+          return this.getTableData$(
+            this.paginator.pageIndex + 1,
+            this.paginator.pageSize
+          ).pipe(catchError(() => observableOf(null)));
+        }),
+        map((empData) => {
+          if (empData == null) return [];
+          this.pagination = JSON.parse(empData.headers.get('X-Pagination')) as Pagination
+          this.totalData = this.pagination.TotalItemCount;
+          Promise.resolve().then(() => this.isLoading = false);
+          
+          return empData.body;
+        })
+      )
+      .subscribe((empData) => {
+        this.EmpData = empData;
+        this.dataSource = new MatTableDataSource(this.EmpData);
+      });
+  }
+
 }
