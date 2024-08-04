@@ -50,11 +50,7 @@ const routes: Routes = [
     ContentLoaderComponent,
     // RemoteGridBindingDirective,
     ProductionContentComponent,
-<<<<<<< HEAD
-    CamelCasePipe
-=======
     CamelCasePipe,
->>>>>>> 1193485ec2e4ab0cb36b47f89aea5dabd0cde5e5
   ],
   imports: [
     CommonModule,

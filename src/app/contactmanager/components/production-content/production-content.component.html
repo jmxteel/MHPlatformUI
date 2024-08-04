@@ -1,5 +1,4 @@
 <h3>Production</h3>
-<<<<<<< HEAD
 <mat-card class="mh-production-card">
     <mat-card-content class="mat-elevation-z8">
         <mat-form-field>
@@ -25,26 +24,3 @@
         <mat-paginator [length]="pageTotal" [pageSizeOptions]="pageSizes"></mat-paginator>
     </mat-card-content>
 </mat-card>
-=======
-<!-- <mat-card class="mh-production-card">
-    <mat-card-content>    -->
-        <app-content-loader *ngIf="loading"></app-content-loader>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-              <th mat-header-cell *matHeaderCellDef class="mat-header-cell">{{ column | camelCase }}</th>
-              <td mat-cell *matCellDef="let emp">{{ emp[column] }}</td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr>
-          </table>
-          <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-          <mat-paginator
-            #paginator
-            [length]="totalData"
-            [pageSizeOptions]="pageSizes"
-            showFirstLastButtons
-          ></mat-paginator>
-    <!-- </mat-card-content>
-</mat-card> -->
->>>>>>> 1193485ec2e4ab0cb36b47f89aea5dabd0cde5e5
