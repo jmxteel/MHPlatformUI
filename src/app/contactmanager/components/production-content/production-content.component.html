@@ -1,11 +1,26 @@
 <h3>Production</h3>
 <mat-card class="mh-production-card">
-    <mat-card-content>
-        <div class="mh-production-ag-grid-container">
-            <ag-grid-angular class="ag-theme-balham"
-            [columnDefs]="columnDefs" [gridOptions]="gridOptions" 
-            >
-            </ag-grid-angular>               
-        </div>     
+    <mat-card-content class="mat-elevation-z8">
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup.enter)="applyFilter($event, searchInput.value)" placeholder="Ex. Juan" #searchInput [(ngModel)]="filters.q">
+            <button matSuffix mat-icon-button *ngIf="filters.q.length > 1" aria-label="Clear" (click)="resetFilter()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <ng-container *ngIf="searching">
+            <mat-label>Search results for '{{searchedQuery}}'</mat-label>
+        </ng-container>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <mat-table [dataSource]="dataSource$">
+            <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+                <mat-header-cell *matHeaderCellDef>{{ col | camelCase}}</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row[col] }}</mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <mat-paginator [length]="pageTotal" [pageSizeOptions]="pageSizes"></mat-paginator>
     </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { AppUser } from 'src/app/security/app-user';
@@ -31,6 +31,29 @@ export class ProductionDataServices {
 
     this.msgService.clearExceptionMessages();
     return this.http.get<any>(this.apiUrl, {observe: 'response'}).pipe(
+      tap(response => {
+        console.log('getCustomers() response:'+ JSON.stringify(response));
+      }),
+      catchError(
+        this.securityService.handleError<any>())
+    )
+  }
+
+  getCharacters(
+    filters: {status?: string; gender?: string; name?: string; page: string;} = {status: '', gender: '', name: '', page: ''}): Observable<any> {
+    const params = new HttpParams({ fromObject: filters });
+    return this.http.get<any>(
+      `https://rickandmortyapi.com/api/character`,
+      { params }
+    );
+  }  
+
+  getCustomers2(filters: {status?: string; gender?: string; name?: string; page: string;} = {status: '', gender: '', name: '', page: ''}): Observable<any> {
+    //Remove this code if you want to use authguard instead of.NET Security Policy
+
+    this.msgService.clearExceptionMessages();
+    const params = new HttpParams({ fromObject: filters });
+    return this.http.get<any>(this.apiUrl, {observe: 'response', params}).pipe(
       tap(response => {
         console.log('getCustomers() response:'+ JSON.stringify(response));
       }),
