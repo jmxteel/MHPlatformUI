@@ -17,7 +17,30 @@ app-content-loader {
     justify-content: center;
 }
 
+<<<<<<< HEAD
 .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
   }
+=======
+.modal-backdrop {
+    z-index: 1040 !important;
+  }
+  .modal-content {
+    z-index: 1100 !important;
+  }
+
+  table {
+    width: 100%;
+}
+
+.full-width {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-header-cell {
+  color: white;
+  background-color: #3f51b5 !important;
+}
+>>>>>>> 1193485ec2e4ab0cb36b47f89aea5dabd0cde5e5
