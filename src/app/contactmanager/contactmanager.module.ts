@@ -20,6 +20,11 @@ import { AgGridModule } from 'ag-grid-angular';
 // import { RemoteGridBindingDirective } from './components/installation-content/remote-grid-binding.directive';
 import { ProductionContentComponent } from './components/production-content/production-content.component';
 import { CamelCasePipe } from '../shared/custom-pipe/camel-case.pipe';
+import { ForScheduleComponent } from './components/installation-content/for-schedule/for-schedule.component';
+import { ScheduledComponent } from './components/installation-content/scheduled/scheduled.component';
+import { OnGoingComponent } from './components/installation-content/on-going/on-going.component';
+import { OnHoldComponent } from './components/installation-content/on-hold/on-hold.component';
+import { CellMenuRendererComponent } from './components/installation-content/cell-menu-renderer/cell-menu-renderer.component';
 
 const routes: Routes = [
   {
@@ -51,6 +56,11 @@ const routes: Routes = [
     // RemoteGridBindingDirective,
     ProductionContentComponent,
     CamelCasePipe,
+    ForScheduleComponent,
+    ScheduledComponent,
+    OnGoingComponent,
+    OnHoldComponent,
+    CellMenuRendererComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,10 @@
+<mat-card class="mh-installation-card"> 
+    <mat-card-content>
+        <div class="mh-installation-ag-grid-container">
+            <ag-grid-angular class="ag-theme-balham" [columnDefs]="columnDefs" [gridOptions]="gridOptions" [animateRows]="true" (cellClicked)="onCellClicked($event)">
+            </ag-grid-angular>
+        </div>
+        <app-content-loader *ngIf="loading"></app-content-loader>
+        <exception-message *ngIf="!loading"></exception-message>
+    </mat-card-content>
+</mat-card>

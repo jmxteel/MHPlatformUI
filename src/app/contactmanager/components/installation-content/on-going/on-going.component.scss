@@ -1,0 +1,28 @@
+.mh-installation-card{
+    width: 100%; 
+}
+
+.mh-installation-card-content{
+    width: 100%; 
+}
+
+.mh-installation-ag-grid-container{
+    width: 100%; 
+}
+
+app-content-loader {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.example-small-box, .example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+  }

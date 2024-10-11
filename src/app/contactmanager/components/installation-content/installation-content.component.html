@@ -2,33 +2,22 @@
 
 <mat-tab-group dynamicHeight (selectedTabChange)="onTabChange($event)">
     <mat-tab label="{{title.forSchedule}}">
-        <mat-card class="mh-installation-card">
-            <mat-card-content>
-                <div class="mh-installation-ag-grid-container">
-                    <ag-grid-angular class="ag-theme-balham" [columnDefs]="columnDefs" [gridOptions]="gridOptions">
-                    </ag-grid-angular>
-                </div>
-                <app-content-loader *ngIf="loading"></app-content-loader>
-                <exception-message *ngIf="!loading"></exception-message>
-            </mat-card-content>
-        </mat-card>
+        <app-for-schedule *ngIf="htmlRef == 0"></app-for-schedule>
     </mat-tab>
     <mat-tab label="{{title.scheduled}}">
         <mat-card class="mh-installation-card">
-            <mat-card-content>
-                <p>Scheduled</p>
-            </mat-card-content>
+            <app-scheduled *ngIf="htmlRef == 1"></app-scheduled>
         </mat-card>
-        <app-content-loader *ngIf="loading"></app-content-loader>
-        <exception-message *ngIf="!loading"></exception-message>
     </mat-tab>
     <mat-tab label="{{title.onGoing}}">
         <mat-card class="mh-installation-card">
-            <mat-card-content>
-                <p>On Going</p>
-            </mat-card-content>
+            <app-on-going *ngIf="htmlRef == 2"></app-on-going>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="{{title.forCancellation}}">
+        <mat-card class="mh-installation-card">
         </mat-card>
         <app-content-loader *ngIf="loading"></app-content-loader>
         <exception-message *ngIf="!loading"></exception-message>
-    </mat-tab>
+    </mat-tab>    
 </mat-tab-group>
